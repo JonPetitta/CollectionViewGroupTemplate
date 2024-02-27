@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:CollectionViewGroupTemplate.ViewModels"
+             xmlns:models="clr-namespace:CollectionViewGroupTemplate.Models"
+             x:Class="CollectionViewGroupTemplate.MainPage"
+             x:DataType="viewmodels:ItemsViewModel">
+
+    <CollectionView ItemsSource="{Binding ItemGroups}"
+                    IsGrouped="True"
+            ItemSizingStrategy="MeasureFirstItem">
+        <CollectionView.GroupHeaderTemplate>
+            <DataTemplate>
+                <Label Text="{Binding Name}" x:DataType="models:ItemGroup" BackgroundColor="DarkGray"/>
+            </DataTemplate>
+        </CollectionView.GroupHeaderTemplate>
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="models:Item">
+                <!--
+                FlexLayout nothing is visible
+                HorizontalStackLayout nothing is visible
+                Grid something is visible, just not correctly, ItemTemplate doesn't seem to account for sizing of child items
+                -->
+                <FlexLayout JustifyContent="SpaceBetween" AlignItems="Center" HeightRequest="100" >
+                    <Label Text="{Binding Name}" Padding="8,0" HeightRequest="80" />
+                    <Label Text="{Binding CreateDate, StringFormat='{0:MMM d}'}" Padding="8,0" HeightRequest="85" />
+                </FlexLayout>
+                <!--<HorizontalStackLayout Spacing="8" Padding="8, 14" HeightRequest="100" BackgroundColor="SlateGray">
+                    <Label Text="{Binding Name}" Padding="8,0" WidthRequest="100" HeightRequest="80" BackgroundColor="DimGray"/>
+                    <Label Text="{Binding DueDate, StringFormat='{0:MMM d}'}" Padding="8,0" WidthRequest="100" HeightRequest="85" BackgroundColor="DimGray"/>
+                </HorizontalStackLayout>-->
+                <!--<Grid BackgroundColor="SlateGray">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.5*" />
+                        <ColumnDefinition Width="0.2*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition  Height="100"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" HeightRequest="80" BackgroundColor="DimGray"
+                        Text="{Binding Name}" Padding="8,0" />
+                    <Label Grid.Column="1" Grid.Row="0"
+                        Text="{Binding DueDate, StringFormat='{0:MMM d}'}" HeightRequest="85" Padding="8,0" BackgroundColor="DimGray" />
+                </Grid>-->
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+
+</ContentPage>
